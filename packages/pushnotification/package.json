@@ -1,6 +1,6 @@
 {
   "name": "globalhitss-amplify-pushnotification",
-  "version": "3.2.16",
+  "version": "3.3.0",
   "description": "Push notifications category of aws-amplify",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
