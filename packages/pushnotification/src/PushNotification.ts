@@ -19,7 +19,7 @@ import {
 	AppState,
 } from 'react-native';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { Amplify, ConsoleLogger as Logger, JS } from '@aws-amplify/core';
+import { Amplify, ConsoleLogger as Logger, JS, retry } from '@aws-amplify/core';
 
 const logger = new Logger('Notification');
 
@@ -60,6 +60,18 @@ export default class PushNotification {
 
 	getModuleName() {
 		return 'Pushnotification';
+	}
+
+	async getInitialNotification(): Promise<any> {
+		if (Platform.OS === 'android') {
+			return new Promise(resolve => {
+				RNPushNotification.getInitialNotification(data =>
+					resolve(JSON.parse(data))
+				);
+			});
+		} else {
+			return PushNotificationIOS.getInitialNotification();
+		}
 	}
 
 	configure(config) {
