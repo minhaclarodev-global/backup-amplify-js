@@ -74,6 +74,14 @@ export default class PushNotification {
 		}
 	}
 
+	async getToken(): Promise<string> {
+		return new Promise(resolve => {
+			RNPushNotification.getToken(token => {
+				resolve(token);
+			});
+		});
+	}
+
 	configure(config) {
 		if (JS.isEmpty(config)) return this._config;
 		let conf = config ? config.PushNotification || config : {};
